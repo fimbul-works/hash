@@ -1,0 +1,10 @@
+import { expect, it, describe } from "vitest";
+import { crc64 } from "./crc64.js";
+
+describe("crc64", () => {
+  it("should produce consistent results", () => {
+    expect(typeof crc64("hello")).toBe("bigint");
+    expect(crc64("hello")).toBe(crc64("hello"));
+    expect(crc64("hello")).not.toBe(crc64("world"));
+  });
+});
