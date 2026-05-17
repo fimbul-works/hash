@@ -4,7 +4,7 @@ import { U64_MAX } from "../constants.js";
  * wangHash64 — A 64-bit integer mixer that provides high avalanche.
  * This is based on Thomas Wang's 64-bit mix function.
  *
- * @remark This function uses BigInt internally for 64-bit precision, which has
+ * This function uses BigInt internally for 64-bit precision, which has
  * higher overhead than 32-bit integer arithmetic.
  *
  * @param {bigint} n - The 64-bit integer to hash (as a bigint)

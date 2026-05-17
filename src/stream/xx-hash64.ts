@@ -1,5 +1,5 @@
-import { getBytes } from "../util/get-bytes.js";
 import { U64_MAX } from "../constants.js";
+import { getBytes } from "../util/get-bytes.js";
 
 const XXH64_P1 = 11400714785074694791n;
 const XXH64_P2 = 14029467366897019727n;
@@ -10,7 +10,7 @@ const XXH64_P5 = 2870177450012600261n;
 /**
  * xxHash64 — 64-bit variant of xxHash.
  *
- * @remark This function uses BigInt internally for 64-bit precision, which has
+ * This function uses BigInt internally for 64-bit precision, which has
  * higher overhead than 32-bit integer arithmetic.
  *
  * @param {unknown} data - The input data to hash

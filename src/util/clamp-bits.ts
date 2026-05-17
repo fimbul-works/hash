@@ -8,16 +8,20 @@ import { U32_MAX, U32_MAX_BIG, U64_MAX } from "../constants.js";
 export type BitWidth = number;
 
 // Fast lookup tables — precalculated for all bits from 2 to 64
-const NUM_MASKS = new Uint32Array(33);
-const BIG_MASKS = new BigUint64Array(65);
+let NUM_MASKS: Uint32Array;
+let BIG_MASKS: BigUint64Array;
 
-for (let i = 2; i <= 32; i++) {
-  NUM_MASKS[i] = i === 32 ? U32_MAX : (1 << i) - 1;
-}
+const initMasks = () => {
+  NUM_MASKS = new Uint32Array(33);
+  BIG_MASKS = new BigUint64Array(65);
+  for (let i = 2; i <= 32; i++) {
+    NUM_MASKS[i] = i === 32 ? U32_MAX : (1 << i) - 1;
+  }
 
-for (let i = 2; i <= 64; i++) {
-  BIG_MASKS[i] = (1n << BigInt(i)) - 1n;
-}
+  for (let i = 2; i <= 64; i++) {
+    BIG_MASKS[i] = (1n << BigInt(i)) - 1n;
+  }
+};
 
 /**
  * Clamp a hash output to the specified number of bits (2 to 64).
@@ -38,6 +42,8 @@ export const clampBits = (hash: number | bigint, bits: BitWidth): number | bigin
   if (bits < 2 || bits > 64) {
     throw new Error(`clampBits: bit width must be between 2 and 64 (got ${bits})`);
   }
+
+  if (!NUM_MASKS) initMasks();
 
   if (bits <= 32) {
     // Stay in number-land — no BigInt allocation

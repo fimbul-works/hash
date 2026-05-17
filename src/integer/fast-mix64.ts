@@ -4,7 +4,7 @@ import { FAST_MIX_MUL_64, FAST_UNMIX_MUL_64, U64_MAX } from "../constants.js";
  * fastMix64 — High-speed symmetric 64-bit integer mixer.
  * Scrambles one or two bigints into one using 64-bit multiply-xorshift.
  *
- * @remark This function uses BigInt internally for 64-bit precision, which has
+ * This function uses BigInt internally for 64-bit precision, which has
  * higher overhead than 32-bit integer arithmetic.
  *
  * @param {bigint} a - First bigint to mix

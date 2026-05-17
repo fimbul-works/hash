@@ -1,0 +1,20 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src/index.ts"],
+  "out": "docs",
+  "excludePrivate": true,
+  "excludeExternals": false,
+  "excludeInternal": true,
+  "categorizeByGroup": false,
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": false,
+    "includeFolders": true
+  },
+  "groupOrder": ["Classes", "Functions", "Interfaces", "Type Aliases", "*"],
+  "includeVersion": true,
+  "hideGenerator": true,
+  "cleanOutputDir": true,
+  "sort": ["kind", "instance-first", "alphabetical"],
+  "disableSources": false
+}

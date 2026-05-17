@@ -1,5 +1,5 @@
-import { getBytes } from "../util/get-bytes.js";
 import { U64_MAX } from "../constants.js";
+import { getBytes } from "../util/get-bytes.js";
 
 const WY_P1 = 0xa0761d6478bd642fn;
 const WY_P2 = 0xe7037ed1a0b428dbn;
@@ -9,7 +9,7 @@ const WY_P4 = 0x589965cc75374cc3n;
 /**
  * WyHash — extremely fast, high-quality 64-bit hash (v3).
  *
- * @remark This function uses BigInt internally for 64-bit precision, which has
+ * This function uses BigInt internally for 64-bit precision, which has
  * higher overhead than 32-bit integer arithmetic.
  *
  * @param {unknown} data - The input data to hash

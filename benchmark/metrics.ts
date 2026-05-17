@@ -47,7 +47,7 @@ export function calculateUniformityScore(values: number[], buckets: number): num
   const expected = values.length / buckets;
   let chi2 = 0;
   for (const c of counts) {
-    chi2 += ((c - expected) ** 2) / expected;
+    chi2 += (c - expected) ** 2 / expected;
   }
   return chi2;
 }

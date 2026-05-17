@@ -1,3 +1,4 @@
 node_modules
 dist
+bundles
 benchmark_results.txt

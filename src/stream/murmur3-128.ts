@@ -1,5 +1,5 @@
-import { getBytes } from "../util/get-bytes.js";
 import { MH3_FINAL_64_1, MH3_FINAL_64_2, U64_MAX } from "../constants.js";
+import { getBytes } from "../util/get-bytes.js";
 
 const C1 = 0x87c37b91114253d5n;
 const C2 = 0x4cf5ad432745937fn;
@@ -9,7 +9,7 @@ const rotl64 = (x: bigint, n: bigint): bigint => ((x << n) | (x >> (64n - n))) &
 /**
  * murmur3Hash128 — 128-bit variant of MurmurHash3.
  *
- * @remark This function uses BigInt internally for 128-bit precision, which has
+ * This function uses BigInt internally for 128-bit precision, which has
  * higher overhead than 32-bit integer arithmetic.
  *
  * @param {unknown} data - The input data to hash

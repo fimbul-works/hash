@@ -1,54 +1,62 @@
 {
-	"name": "@fimbul-works/util-hash",
-	"description": "A comprehensive collection of high-performance hashing algorithms for TypeScript and JavaScript",
-	"version": "1.0.0",
-	"type": "module",
-	"private": false,
-	"license": "MIT",
-	"author": "FimbulWorks <contact@fimbul.works.com>",
-	"homepage": "https://github.com/fimbul-works/util-hash#readme",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/fimbul-works/util-hash.git"
-	},
-	"bugs": {
-		"url": "https://github.com/fimbul-works/util-hash/issues"
-	},
-	"keywords": [],
-	"main": "./dist/cjs/index.js",
-	"module": "./dist/esm/index.js",
-	"types": "./dist/esm/index.d.ts",
-	"exports": {
-		".": {
-			"types": "./dist/esm/index.d.ts",
-			"import": "./dist/esm/index.js",
-			"require": "./dist/cjs/index.js"
-		}
-	},
-	"files": [
-		"dist",
-		"README.md",
-		"LICENSE"
-	],
-	"sideEffects": true,
-	"scripts": {
-		"build": "rm -rf dist && pnpm build:esm && pnpm build:cjs",
-		"build:esm": "tsc -p tsconfig.json",
-		"build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
-		"format": "npx biome format --write src",
-		"test": "vitest",
-		"benchmark": "tsx benchmark/runner.ts",
-		"prepublishOnly": "npm run build"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.4.8",
-		"@faker-js/faker": "^10.4.0",
-		"@types/node": "^25.5.0",
-		"mitata": "^1.0.34",
-		"rollup": "^4.60.0",
-		"rollup-plugin-esbuild": "^6.2.1",
-		"tsx": "^4.21.0",
-		"typescript": "^5.9.3",
-		"vitest": "^4.1.1"
-	}
+  "name": "@fimbul-works/util-hash",
+  "description": "A comprehensive collection of high-performance hashing algorithms for TypeScript and JavaScript",
+  "version": "1.0.0",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "author": "FimbulWorks <contact@fimbul.works.com>",
+  "homepage": "https://github.com/fimbul-works/util-hash#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fimbul-works/util-hash.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fimbul-works/util-hash/issues"
+  },
+  "keywords": [],
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": true,
+  "scripts": {
+    "clean": "rm -rf dist",
+    "clean:bundles": "rm -rf bundles",
+    "build": "pnpm clean && pnpm build:esm && pnpm build:cjs && pnpm build:docs",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "build:bundles": "pnpm clean:bundles && tsdown",
+    "build:all": "pnpm build && pnpm build:bundles && pnpm sizes",
+    "build:docs": "typedoc",
+    "format": "npx biome format --write src *.json *.ts",
+    "test": "vitest",
+    "sizes": "npx bundle-size",
+    "benchmark": "tsx benchmark/runner.ts",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
+    "@faker-js/faker": "^10.4.0",
+    "@fimbul-works/bundle-size": "link:../bundle-size",
+    "@types/node": "^25.8.0",
+    "mitata": "^1.0.34",
+    "tsdown": "^0.22.0",
+    "tsx": "^4.22.0",
+    "typedoc": "^0.28.19",
+    "typedoc-plugin-markdown": "^4.11.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.6"
+  }
 }

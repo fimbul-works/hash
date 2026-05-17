@@ -1,18 +1,19 @@
 {
-	"compilerOptions": {
-		"target": "ES2024",
-		"module": "ES2022",
-		"lib": ["ES2024"],
-		"moduleResolution": "Bundler",
-		"declaration": true,
-		"allowJs": true,
-		"strict": true,
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-    "rootDir": "./src",
-		"outDir": "./dist/esm/"
-	},
-	"include": ["src"],
-	"exclude": ["src/**/*.test.ts", "node_modules"]
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "types": ["node"],
+    "moduleResolution": "Bundler",
+    "declaration": true,
+    "allowJs": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist/esm",
+    "rootDir": "./src"
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.test.ts", "node_modules"]
 }

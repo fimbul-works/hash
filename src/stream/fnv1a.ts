@@ -7,7 +7,7 @@ const FNV_OFFSET_32 = 2166136261n;
 /**
  * Compute the Fowler–Noll–Vo 1a 32-bit hash of the input data.
  *
- * @remark This function uses BigInt internally for intermediate calculations
+ * This function uses BigInt internally for intermediate calculations
  * to handle 32-bit overflow correctly, which has higher overhead than imul-based hashes.
  *
  * @param {unknown} data - The input data to hash

@@ -14,34 +14,27 @@ export function* generateSequence(start: number, end: number): Generator<number>
  */
 export function generatePaths(count: number): string[] {
   const paths: string[] = [];
-  const templates = [
-    "/",
-    "/user",
-    "/user/:id",
-    "/posts/:id",
-    "/category/:slug",
-    "/api/v1/resource",
-  ];
+  const templates = ["/", "/user", "/user/:id", "/posts/:id", "/category/:slug", "/api/v1/resource"];
 
   for (let i = 0; i < count; i++) {
     const template = templates[Math.floor(Math.random() * templates.length)];
     let path = template;
-    
+
     if (path.includes(":id")) {
       path = path.replace(":id", faker.string.uuid());
     }
     if (path.includes(":slug")) {
       path = path.replace(":slug", faker.lorem.slug());
     }
-    
+
     // Ensure uniqueness even for templates without placeholders
     path += (path.includes("?") ? "&" : "?") + `_t=${i}`;
-    
+
     // Add some random query params or subpaths
     if (Math.random() > 0.7) {
       path += `&val=${faker.lorem.word()}`;
     }
-    
+
     paths.push(path);
   }
   return paths;

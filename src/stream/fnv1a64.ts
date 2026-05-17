@@ -1,5 +1,5 @@
-import { getBytes } from "../util/get-bytes.js";
 import { U64_MAX } from "../constants.js";
+import { getBytes } from "../util/get-bytes.js";
 
 const FNV64_PRIME = 1099511628211n;
 const FNV64_OFFSET = 14695981039346656037n;
@@ -7,7 +7,7 @@ const FNV64_OFFSET = 14695981039346656037n;
 /**
  * fnv1a64Hash — 64-bit variant of the Fowler–Noll–Vo hash.
  *
- * @remark This function uses BigInt internally for 64-bit precision, which has
+ * This function uses BigInt internally for 64-bit precision, which has
  * higher overhead than 32-bit integer arithmetic.
  *
  * @param {unknown} data - The input data to hash
