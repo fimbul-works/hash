@@ -3,9 +3,10 @@
  * Bijective: maps every unique (x, y) pair to a unique natural number.
  * Output grows quadratically — not suitable as a hash for large inputs.
  *
- * @param {number} x - The first non-negative integer
- * @param {number} y - The second non-negative integer
- * @returns {number} The paired natural number
+ * @param {number} x - The first non-negative integer.
+ * @param {number} y - The second non-negative integer.
+ * @returns {number} The paired natural number.
+ * @throws {Error} Will throw an error if either x or y is not a non-negative integer.
  */
 export const cantorPair = (x: number, y: number): number => {
   if (!Number.isInteger(x) || x < 0 || !Number.isInteger(y) || y < 0) {
@@ -17,8 +18,9 @@ export const cantorPair = (x: number, y: number): number => {
 /**
  * Reverses the Cantor pairing function, recovering the original pair.
  *
- * @param {number} z - The result of a previous cantorPair call
- * @returns {[number, number]} The original pair [x, y]
+ * @param {number} z - The result of a previous cantorPair call.
+ * @returns {[number, number]} Array containing the original pair [x, y].
+ * @throws {Error} Will throw an error if z is not a non-negative integer.
  */
 export const reverseCantorPair = (z: number): [number, number] => {
   if (!Number.isInteger(z) || z < 0) {

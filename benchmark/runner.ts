@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import * as fs from "node:fs";
 import { performance } from "node:perf_hooks";
 import { bench, group, run } from "mitata";
@@ -9,8 +11,8 @@ import { clampBits } from "../src/util/clamp-bits.js";
 import { getBenchmarkData } from "./data.js";
 import { calculateCollisionRate, calculateEntropy } from "./metrics.js";
 
-type Algo = { name: string; fn: (...args: any[]) => number | bigint; supportsStrings: boolean };
-type PairAlgo = { name: string; fn: (...args: any[]) => number[]; supportsStrings: boolean };
+type Algo = { name: string; fn: (...args: unknown[]) => number | bigint; supportsStrings: boolean };
+type PairAlgo = { name: string; fn: (...args: number[]) => number[]; supportsStrings: boolean };
 
 const DATA_COUNT = 10000;
 const { numbers, paths, uuids } = getBenchmarkData(DATA_COUNT);
@@ -20,11 +22,11 @@ const allAlgos = [
   ...Object.entries(streamHashes).map(([name, fn]) => ({ name, fn, supportsStrings: true })),
   { name: "mash", fn: createMash(), supportsStrings: true },
   { name: "mash64", fn: createMash64(), supportsStrings: true },
-] as Algo[];
+].filter((a) => !a.name.startsWith("verify") && !a.name.includes("Unmix")) as Algo[];
 
 const pairAlgos = Object.entries(pairHashes).map(([name, fn]) => ({
   name: `pair:${name}`,
-  fn: (v: any) => fn(v, v),
+  fn: (v: number) => fn(v, v),
   supportsStrings: false,
 })) as PairAlgo[];
 
@@ -55,7 +57,7 @@ group("Speed: Numeric Keys (1 to 10k)", () => {
         const input = isBigInt ? BigInt(n) : n;
         const a1 = isBigInt ? BigInt((n * 0x45d9f3b) >>> 0) : (n * 0x45d9f3b) >>> 0;
         const a2 = isBigInt ? BigInt((n * 0x9e3779b1) >>> 0) : (n * 0x9e3779b1) >>> 0;
-        fn(input as any, a1 as any, a2 as any);
+        fn(input, a1, a2);
       }
     });
   }
@@ -114,7 +116,7 @@ const runEntropyTest = (label: string, list: (Algo | PairAlgo)[], testData?: any
       for (let i = 0; i < dataToTest.length; i++) {
         const d = dataToTest[i];
         const input = isBigInt && typeof d === "number" ? BigInt(d) : d;
-        fn(input as any);
+        fn(input);
       }
     }
     const end = performance.now();

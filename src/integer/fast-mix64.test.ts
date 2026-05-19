@@ -1,4 +1,4 @@
-import { expect, it, describe } from "vitest";
+import { describe, expect, it } from "vitest";
 import { fastMix64, fastUnmix64, verifyFastMix64 } from "./fast-mix64.js";
 
 describe("fastMix64", () => {

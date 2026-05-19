@@ -1,4 +1,4 @@
-import { expect, it, describe } from "vitest";
+import { describe, expect, it } from "vitest";
 import { jenkinsMixHash } from "./jenkins-mix-hash.js";
 
 describe("jenkinsMixHash", () => {

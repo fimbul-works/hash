@@ -1,8 +1,5 @@
-import { U32_MAX } from "../constants.js";
 import { getBytes } from "../util/get-bytes.js";
 
-/** CRC-32 polynomial: 0xEDB88320 (reversed/reflected Ethernet polynomial) */
-const CRC32_POLY = 0xedb88320;
 let CRC32_TABLE: Uint32Array;
 
 /**
@@ -13,7 +10,7 @@ const initCRC32 = () => {
   for (let i = 0; i < 256; i++) {
     let c = i;
     for (let j = 0; j < 8; j++) {
-      c = c & 1 ? CRC32_POLY ^ (c >>> 1) : c >>> 1;
+      c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
     }
     CRC32_TABLE[i] = c;
   }
@@ -22,16 +19,17 @@ const initCRC32 = () => {
 /**
  * Compute the CRC-32 hash of the input data.
  *
- * @param {unknown} data - The input data to hash
- * @returns {number} The computed CRC-32 hash
+ * @param {unknown} data - Input data to hash.
+ * @returns {number} The computed 32-bit unsigned hash.
  */
 export const crc32 = (data: unknown): number => {
-  if (!CRC32_TABLE) initCRC32();
-
+  if (!CRC32_TABLE) {
+    initCRC32();
+  }
   const bytes = getBytes(data);
-  let crc = U32_MAX;
+  let crc = 0xffffffff;
   for (let i = 0; i < bytes.length; i++) {
     crc = CRC32_TABLE[(crc ^ bytes[i]) & 0xff] ^ (crc >>> 8);
   }
-  return (crc ^ U32_MAX) >>> 0;
+  return (crc ^ 0xffffffff) >>> 0;
 };

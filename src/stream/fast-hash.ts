@@ -1,16 +1,16 @@
 import { getBytes } from "../util/get-bytes.js";
 
-const FASTHASH_MULT = 0x2127599;
-
 /**
  * fastHash — a simple and fast non-cryptographic hash function.
  * Adaptation of the FastHash algorithm by Zilong Tan.
  *
- * @param {unknown} data - The input data to hash
- * @param {number} seed - Optional seed value (default: 0)
- * @returns {number} The computed 32-bit unsigned hash
+ * @param {unknown} data - Input data to hash.
+ * @param {number} [seed=0] - Optional seed.
+ * @returns {number} The computed 32-bit unsigned hash.
  */
-export const fastHash = (data: unknown, seed = 0): number => {
+export const fastHash = (data: unknown, seed: number = 0): number => {
+  const FASTHASH_MULT = 0x2127599;
+
   const bytes = getBytes(data);
   const len = bytes.length;
   let h = (seed ^ len) >>> 0;

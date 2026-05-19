@@ -1,4 +1,4 @@
-import { expect, it, describe } from "vitest";
+import { describe, expect, it } from "vitest";
 import { mulberry } from "./mulberry.js";
 
 describe("mulberry", () => {

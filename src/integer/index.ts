@@ -1,6 +1,6 @@
-export * from "./jenkins-mix.js";
 export * from "./fast-mix.js";
 export * from "./fast-mix64.js";
+export * from "./jenkins-mix.js";
 export * from "./mulberry.js";
 export * from "./pcg.js";
 export * from "./splitmix.js";

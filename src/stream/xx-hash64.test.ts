@@ -1,4 +1,4 @@
-import { expect, it, describe } from "vitest";
+import { describe, expect, it } from "vitest";
 import { xxHash64 } from "./xx-hash64.js";
 
 describe("xxHash64", () => {

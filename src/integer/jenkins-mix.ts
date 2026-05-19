@@ -3,10 +3,10 @@
  * Nine rounds of subtract-and-XOR across the three words; each input bit
  * affects all bits of the output. For a byte-consuming version see `mixHash`.
  *
- * @param {number} a - First number
- * @param {number} b - Second number
- * @param {number} c - Third number
- * @returns {number} A new 32-bit unsigned number
+ * @param {number} a - First 32-bit unsigned number.
+ * @param {number} b - Second 32-bit unsigned number.
+ * @param {number} c - Third 32-bit unsigned number.
+ * @returns {number} The computed 32-bit unsigned hash.
  */
 export const jenkinsMix = (a: number, b: number, c: number): number => {
   a -= b;

@@ -1,18 +1,19 @@
 import { getBytes } from "../util/get-bytes.js";
-import { MH3_FINAL1, MH3_FINAL2 } from "../constants.js";
-
-const MH3_C1 = 0xcc9e2d51;
-const MH3_C2 = 0x1b873593;
-const MH3_FINAL3 = 0xe6546b64;
 
 /**
  * MurmurHash3 32-bit — fast, well-distributed non-cryptographic hash.
  *
- * @param {unknown} data - The input data to hash
- * @param {number} [seed=0] - Optional seed value (default: 0)
- * @returns {number} The computed 32-bit hash
+ * @param {unknown} data - Input data to hash.
+ * @param {number} [seed=0] - Optional seed.
+ * @returns {number} The computed 32-bit unsigned hash.
  */
-export function murmur3Hash(data: unknown, seed = 0): number {
+export function murmur3Hash(data: unknown, seed: number = 0): number {
+  const MH3_C1 = 0xcc9e2d51;
+  const MH3_C2 = 0x1b873593;
+  const MH3_FINAL1 = 0x85ebca6b;
+  const MH3_FINAL2 = 0xc2b2ae35;
+  const MH3_FINAL3 = 0xe6546b64;
+
   const bytes = getBytes(data);
   let h1 = seed;
   const chunks = Math.floor(bytes.length / 4);

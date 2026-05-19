@@ -1,5 +1,3 @@
-import { U32_MAX, U32_MAX_BIG, U64_MAX } from "../constants.js";
-
 /**
  * Supported bit widths for hash output clamping.
  * Note: 53 is Number.MAX_SAFE_INTEGER's bit length — the largest value that fits
@@ -15,9 +13,8 @@ const initMasks = () => {
   NUM_MASKS = new Uint32Array(33);
   BIG_MASKS = new BigUint64Array(65);
   for (let i = 2; i <= 32; i++) {
-    NUM_MASKS[i] = i === 32 ? U32_MAX : (1 << i) - 1;
+    NUM_MASKS[i] = i === 32 ? 0xffffffff : (1 << i) - 1;
   }
-
   for (let i = 2; i <= 64; i++) {
     BIG_MASKS[i] = (1n << BigInt(i)) - 1n;
   }
@@ -43,11 +40,13 @@ export const clampBits = (hash: number | bigint, bits: BitWidth): number | bigin
     throw new Error(`clampBits: bit width must be between 2 and 64 (got ${bits})`);
   }
 
-  if (!NUM_MASKS) initMasks();
+  if (!NUM_MASKS) {
+    initMasks();
+  }
 
   if (bits <= 32) {
     // Stay in number-land — no BigInt allocation
-    const n = typeof hash === "bigint" ? Number(hash & U32_MAX_BIG) : hash >>> 0;
+    const n = typeof hash === "bigint" ? Number(hash & 0xffffffffn) : hash >>> 0;
     return (n & NUM_MASKS[bits]) >>> 0; // Force unsigned
   }
 

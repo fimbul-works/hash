@@ -3,8 +3,8 @@
  * Pure XOR and shifts (two multiplies for distribution correction).
  * Excellent for seeding PRNGs or hashing integer keys (grid coords, entity IDs).
  *
- * @param {number} n - The integer input
- * @returns {number} A 32-bit unsigned hash
+ * @param {number} n - 32-bit integer to hash.
+ * @returns {number} The computed 32-bit unsigned hash.
  */
 export const wangHash = (n: number): number => {
   n = n ^ 61 ^ (n >>> 16);

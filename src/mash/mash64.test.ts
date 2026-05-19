@@ -1,4 +1,4 @@
-import { expect, it, describe } from "vitest";
+import { describe, expect, it } from "vitest";
 import { createMash64 } from "./mash64.js";
 
 describe("createMash64", () => {
@@ -19,10 +19,10 @@ describe("createMash64", () => {
     expect(m2("b")).toBe(res2);
   });
 
-  it("should support 'slitting' / forking logic", () => {
+  it("should support forking logic", () => {
     const m1 = createMash64();
     m1("prologue");
-    const checkpoint = m1.seed;
+    const checkpoint = m1.state;
 
     const m2 = createMash64(checkpoint);
     const m3 = createMash64(checkpoint);

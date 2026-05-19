@@ -1,5 +1,5 @@
 {
-  "name": "@fimbul-works/util-hash",
+  "name": "@fimbul-works/hash",
   "description": "A comprehensive collection of high-performance hashing algorithms for TypeScript and JavaScript",
   "version": "1.0.0",
   "type": "module",

@@ -1,19 +1,19 @@
 import { getBytes } from "../util/get-bytes.js";
 
-const XXH32_P1 = 0x9e3779b1;
-const XXH32_P2 = 0x85ebca77;
-const XXH32_P3 = 0xc2b2ae3d;
-const XXH32_P4 = 0x27d4eb2f;
-const XXH32_P5 = 0x165667b1;
-
 /**
  * xxHash — extremely fast non-cryptographic hash.
  *
- * @param {unknown} data - The input data to hash
- * @param {number} [seed=0] - Optional seed value (default: 0)
- * @returns {number} The computed 32-bit hash
+ * @param {unknown} data - Input data to hash.
+ * @param {number} [seed=0] - Optional seed.
+ * @returns {number} The computed 32-bit unsigned hash.
  */
-export const xxHash = (data: unknown, seed = 0): number => {
+export const xxHash = (data: unknown, seed: number = 0): number => {
+  const XXH32_P1 = 0x9e3779b1;
+  const XXH32_P2 = 0x85ebca77;
+  const XXH32_P3 = 0xc2b2ae3d;
+  const XXH32_P4 = 0x27d4eb2f;
+  const XXH32_P5 = 0x165667b1;
+
   const bytes = getBytes(data);
   const len = bytes.length;
 

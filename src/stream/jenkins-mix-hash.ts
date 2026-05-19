@@ -7,11 +7,11 @@ import { getBytes } from "../util/get-bytes.js";
  *
  * This is the streaming sibling of `jenkinsMix` — they share the same mixing kernel.
  *
- * @param {unknown} data - The input data to hash
- * @param {number} [seed=0] - Optional seed (default: 0)
- * @returns {number} A 32-bit unsigned hash
+ * @param {unknown} data - Input data to hash.
+ * @param {number} [seed=0] - Optional seed.
+ * @returns {number} The computed 32-bit unsigned hash.
  */
-export const jenkinsMixHash = (data: unknown, seed = 0): number => {
+export const jenkinsMixHash = (data: unknown, seed: number = 0): number => {
   const bytes = getBytes(data);
   const len = bytes.length;
 

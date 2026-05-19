@@ -1,4 +1,4 @@
-import { expect, it, describe } from "vitest";
+import { describe, expect, it } from "vitest";
 import { murmur3Hash } from "./murmur3.js";
 
 describe("murmur3Hash", () => {

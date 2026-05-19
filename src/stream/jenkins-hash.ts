@@ -3,12 +3,13 @@ import { getBytes } from "../util/get-bytes.js";
 /**
  * Jenkins one-at-a-time hash.
  *
- * @param {unknown} data - The input data to hash
- * @returns {number} The computed Jenkins hash (32-bit unsigned)
+ * @param {unknown} data - Input data to hash
+ * @param {number} [seed=0] - Optional seed value.
+ * @returns {number} The computed 32-bit unsigned hash.
  */
-export const jenkinsHash = (data: unknown): number => {
+export const jenkinsHash = (data: unknown, seed: number = 0): number => {
   const bytes = getBytes(data);
-  let hash = 0;
+  let hash = seed >>> 0;
   for (let i = 0; i < bytes.length; i++) {
     hash += bytes[i];
     hash += hash << 10;

@@ -1,5 +1,5 @@
-import { getBytes } from "../util/get-bytes.js";
 import { fastMix } from "../integer/fast-mix.js";
+import { getBytes } from "../util/get-bytes.js";
 
 /**
  * fastMixHash — fast, non-cryptographic streaming hash.
@@ -7,11 +7,11 @@ import { fastMix } from "../integer/fast-mix.js";
  * Each 8-byte chunk is read as two 32-bit little-endian words and folded into
  * running state via fastMix. Total length is mixed in at the end for domain separation.
  *
- * @param {unknown} data - The input data to hash
- * @param {number} seed - Optional seed (default: 0)
- * @returns {number} A 32-bit unsigned hash
+ * @param {unknown} data - Input data to hash.
+ * @param {number} [seed=0] - Optional seed.
+ * @returns {number} The computed 32-bit unsigned hash.
  */
-export const fastMixHash = (data: unknown, seed = 0): number => {
+export const fastMixHash = (data: unknown, seed: number = 0): number => {
   const bytes = getBytes(data);
   const len = bytes.length;
   let state = seed >>> 0;
@@ -24,7 +24,6 @@ export const fastMixHash = (data: unknown, seed = 0): number => {
     i += 8;
   }
 
-  // Remaining bytes (up to 7): pack into two 32-bit words
   if (i < len) {
     let lo = 0,
       hi = 0;
@@ -34,6 +33,5 @@ export const fastMixHash = (data: unknown, seed = 0): number => {
     state = fastMix(state ^ (lo >>> 0), hi >>> 0);
   }
 
-  // Mix in length for domain separation (prevents "abc\0" ≡ "abc" collisions)
   return fastMix(state, len) >>> 0;
 };

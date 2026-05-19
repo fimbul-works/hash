@@ -1,4 +1,4 @@
-import { expect, it, describe } from "vitest";
+import { describe, expect, it } from "vitest";
 import { fnv1a64Hash } from "./fnv1a64.js";
 
 describe("fnv1a64Hash", () => {

@@ -2,8 +2,8 @@
  * mulberry — A very fast and simple 32-bit integer mixer.
  * Great for generating a stream of randomness from a single seed.
  *
- * @param {number} n - The 32-bit integer state / seed
- * @returns {number} A high-entropy 32-bit unsigned integer
+ * @param {number} n - 32-bit integer to hash.
+ * @returns {number} The computed 32-bit unsigned hash.
  */
 export const mulberry = (n: number): number => {
   n = ((n | 0) + 0x6d2b79f5) | 0;

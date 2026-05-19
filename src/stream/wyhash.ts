@@ -1,10 +1,4 @@
-import { U64_MAX } from "../constants.js";
 import { getBytes } from "../util/get-bytes.js";
-
-const WY_P1 = 0xa0761d6478bd642fn;
-const WY_P2 = 0xe7037ed1a0b428dbn;
-const WY_P3 = 0x8ebc6af09c88c6e3n;
-const WY_P4 = 0x589965cc75374cc3n;
 
 /**
  * WyHash — extremely fast, high-quality 64-bit hash (v3).
@@ -12,13 +6,19 @@ const WY_P4 = 0x589965cc75374cc3n;
  * This function uses BigInt internally for 64-bit precision, which has
  * higher overhead than 32-bit integer arithmetic.
  *
- * @param {unknown} data - The input data to hash
- * @param {bigint} [seed=0n] - Optional 64-bit seed (default: 0n)
- * @returns {bigint} The computed 64-bit unsigned hash as a bigint
+ * @param {unknown} data - Input data to hash.
+ * @param {bigint} [seed=0n] - Optional seed.
+ * @returns {bigint} The computed 64-bit unsigned hash.
  */
-export const wyHash = (data: unknown, seed = 0n): bigint => {
+export const wyHash = (data: unknown, seed: bigint = 0n): bigint => {
+  const WY_P1 = 0xa0761d6478bd642fn;
+  const WY_P2 = 0xe7037ed1a0b428dbn;
+  const WY_P3 = 0x8ebc6af09c88c6e3n;
+  const WY_P4 = 0x589965cc75374cc3n;
+
   const bytes = getBytes(data);
-  const len = BigInt(bytes.length);
+  const byteLen = bytes.length;
+  const len = BigInt(byteLen);
 
   const read = (idx: number, n: number): bigint => {
     let v = 0n;
@@ -28,14 +28,12 @@ export const wyHash = (data: unknown, seed = 0n): bigint => {
 
   const mum = (a: bigint, b: bigint): bigint => {
     const r = a * b;
-    return (r >> 64n) ^ (r & U64_MAX);
+    return (r >> 64n) ^ (r & 0xffffffffffffffffn);
   };
 
   let a = 0n;
   let b = 0n;
   let s = seed ^ WY_P1;
-
-  const byteLen = bytes.length;
 
   if (byteLen <= 16) {
     if (byteLen >= 4) {

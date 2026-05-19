@@ -1,5 +1,5 @@
-import { expect, it, describe } from "vitest";
-import { szudzikPair, reverseSzudzikPair } from "./szudzik.js";
+import { describe, expect, it } from "vitest";
+import { reverseSzudzikPair, szudzikPair } from "./szudzik.js";
 
 describe("szudzikPair", () => {
   it("should produce consistent results", () => {
