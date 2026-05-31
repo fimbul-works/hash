@@ -1,33 +1,33 @@
-# @fimbul-works/util-hash
+# @fimbul-works/hash
 
 A comprehensive collection of high-performance hashing algorithms for TypeScript and JavaScript.
 
-[![npm version](https://badge.fury.io/js/%40fimbul-works%2Futil-hash.svg)](https://www.npmjs.com/package/@fimbul-works/util-hash)
+[![npm version](https://badge.fury.io/js/%40fimbul-works%2Fhash.svg)](https://www.npmjs.com/package/@fimbul-works/hash)
 [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/microsoft/TypeScript)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@fimbul-works/util-hash)](https://bundlephobia.com/package/@fimbul-works/util-hash)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@fimbul-works%2Fhash)](https://bundlephobia.com/package/@fimbul-works/hash)
 
-## ✨ Highlights
+## Highlights
 
-- **🎯 Type Safe**: Full TypeScript support with strict typing for all algorithms.
-- **⚡ High Performance**: Optimized implementations of modern and classic hashing functions.
-- **🌳 Tree-Shakeable**: Import only the specific algorithms you need.
-- **🧮 Comprehensive**: Covers stream hashing, integer hashing, PRNGs, and pairing functions.
-- **📦 Zero Dependencies**: Lightweight and portable across various environments.
+- **Type Safe**: Full TypeScript support with strict typing for all algorithms.
+- **High Performance**: Optimized implementations of modern and classic hashing functions.
+- **Tree-Shakeable**: Import only the specific algorithms you need.
+- **Comprehensive**: Covers stream hashing, integer hashing, PRNGs, and pairing functions.
+- **Zero Dependencies**: Lightweight and portable across various environments.
 
-## 📦 Installation
+## Installation
 
 ```bash
-pnpm add @fimbul-works/util-hash
+pnpm add @fimbul-works/hash
 # or
-npm install @fimbul-works/util-hash
+npm install @fimbul-works/hash
 # or
-yarn add @fimbul-works/util-hash
+yarn add @fimbul-works/hash
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ```typescript
-import { xxHash, cantorPair, hashToFloat } from '@fimbul-works/util-hash';
+import { xxHash, cantorPair, hashToFloat } from '@fimbul-works/hash';
 
 // Stream hashing (string or buffer)
 const hash = xxHash('Hello, FimbulWorks!');
@@ -42,11 +42,11 @@ const randomFloat = hashToFloat(hash);
 console.log(randomFloat);
 ```
 
-## 📖 API Overview
+## API Overview
 
 The library exports a wide variety of algorithms, grouped logically by their use case:
 
-### 🌊 Stream & Buffer Hashing
+### Stream & Buffer Hashing
 High-performance algorithms for hashing strings or byte buffers:
 - `xxHash`, `xxHash64`
 - `murmur3Hash`, `murmur3Hash128`
@@ -56,21 +56,21 @@ High-performance algorithms for hashing strings or byte buffers:
 - `jenkinsHash`
 - `crc32`, `crc64`
 
-### 🔢 Integer Hashing (Single Pass)
+### Integer Hashing (Single Pass)
 Fast, non-cryptographic hashes for single integer values:
 - `fastHash`, `fastMixHash`
 - `jenkinsMixHash`
 - `fxHash`
 - `wangHash`, `wangHash64`
 
-### 🎲 PRNGs & Mashes
+### PRNGs & Mashes
 Algorithms for pseudo-random number generation and state mashing:
 - `squirrel3`, `squirrel5`
 - `splitMix`, `splitMix64`
 - `mulberry`
 - `createMash`, `createMash64`
 
-### 🛠️ Mixing & Bitwise Utilities
+### Mixing & Bitwise Utilities
 Low-level building blocks for custom hashing and bit manipulation:
 - `fastMix`, `fastMix64`, `pcgMix`, `jenkinsMix`
 - `fastUnmix`, `fastUnmix64`
@@ -80,17 +80,17 @@ Low-level building blocks for custom hashing and bit manipulation:
 > [!TIP]
 > `fastMix` and `fastMix64` are **bijective (invertible)**. This is a powerful property for diagnostics and debugging, allowing you to "un-mix" a value to verify calculation chains.
 
-### 🖇️ Pairing Functions
+### Pairing Functions
 Map two non-negative integers to a single unique integer, and back:
 - `cantorPair`, `reverseCantorPair`
 - `szudzikPair`, `reverseSzudzikPair`
 
-### 🔄 Conversion Utilities
+### Conversion Utilities
 Helpers for transforming hash results between formats:
 - `hashToFloat`, `hash64ToDouble`
 - `getBytes`
 
-## 📄 License
+## License
 
 MIT License - See [LICENSE](LICENSE) file for details.
 
