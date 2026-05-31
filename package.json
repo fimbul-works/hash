@@ -1,7 +1,7 @@
 {
   "name": "@fimbul-works/hash",
   "description": "A comprehensive collection of high-performance hashing algorithms for TypeScript and JavaScript",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "private": false,
   "license": "MIT",
@@ -14,7 +14,28 @@
   "bugs": {
     "url": "https://github.com/fimbul-works/hash/issues"
   },
-  "keywords": [],
+  "keywords": [
+    "hash",
+    "hashing",
+    "non-cryptographic",
+    "integer-hash",
+    "murmurhash3",
+    "xxhash",
+    "wyhash",
+    "siphash",
+    "fnv1a",
+    "crc32",
+    "prng",
+    "seed",
+    "noise",
+    "procedural-generation",
+    "game-dev",
+    "cantor-pairing",
+    "szudzik-pairing",
+    "bijective",
+    "tree-shakeable",
+    "typescript"
+  ],
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",

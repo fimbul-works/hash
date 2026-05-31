@@ -5,7 +5,7 @@
 [![code style](https://img.shields.io/badge/code_style-biome-dfdbd6?style=flat-square)](https://biomejs.dev)
 [![bundle size](https://img.shields.io/badge/bundle_size-ultra--light-blueviolet?style=flat-square)](#performance--bundle-size-leaderboard)
 
-An ultra-lightweight, ESM-first mathematical toolkit for high-performance hashing, bijective integer mixing, coordinate pairing, and stream serialization. Part of the FimbulWorks PRNG and Noise stack.
+An ultra-lightweight, ESM-first mathematical toolkit for high-performance hashing, bijective integer mixing, coordinate pairing, and stream serialization.
 
 ---
 
