@@ -18,6 +18,8 @@ const addDirectoryToEntries = (dir: string): void =>
 
 addDirectoryToEntries("src/stream");
 addDirectoryToEntries("src/mash");
+addDirectoryToEntries("src/integer");
+addDirectoryToEntries("src/pair");
 
 const commonConfig: UserConfig = {
   platform: "neutral",
@@ -36,11 +38,14 @@ const commonConfig: UserConfig = {
   },
 };
 
+const mainBundles = ["bundle", "integer", "stream", "util"];
+
 export default defineConfig(
   Object.entries(entryPoints).map(([key, entry]) => ({
     entry: {
       [key]: entry,
     },
     ...commonConfig,
+    dts: mainBundles.includes(key),
   })),
 );

@@ -1,7 +1,7 @@
 {
   "name": "@fimbul-works/hash",
   "description": "A comprehensive collection of high-performance hashing algorithms for TypeScript and JavaScript",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "private": false,
   "license": "MIT",

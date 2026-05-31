@@ -136,19 +136,19 @@ Benchmarks are run on a standard runtime environment. Integer mixing algorithms 
 ### 1. Integer Hashing & Mixing (Numeric Keys)
 Ideal for seed expansion, grid maps, and PRNG state transitions.
 
-| Algorithm | Gen Speed (ops/s) | Entropy | Collision Rate | Bundle Size (Minified) |
+| Algorithm | Gen Speed (ops/s) | Entropy | Collision Rate | Bundle Size (Minified & Brotli) |
 | :--- | :---: | :---: | :---: | :---: |
-| **fastMix** | 202,004,491 | 13.288 | 0.00% | 1.96KB (Grouped) |
-| **pcgMix** | 141,431,293 | 13.288 | 0.00% | (Internal utility) |
-| **wangHash** | 120,451,554 | 13.288 | 0.00% | 1.00KB |
-| **splitMix** | 74,587,507 | 13.288 | 0.00% | 1.00KB |
-| **squirrel5** | 57,921,521 | 13.288 | 0.00% | 1.10KB |
-| **mulberry** | 41,400,674 | 13.262 | 1.31% | 1.00KB |
-| **squirrel3** | 39,262,467 | 13.288 | 0.00% | 1.10KB |
-| **jenkinsMix** | 34,284,984 | 13.288 | 0.00% | 1.00KB |
-| **splitMix64** | 7,428,126 | 13.288 | 0.00% | 1.20KB (BigInt) |
-| **fastMix64** | 6,502,475 | 13.288 | 0.00% | 1.20KB (BigInt) |
-| **wangHash64** | 4,578,228 | 13.288 | 0.00% | 1.20KB (BigInt) |
+| **pcg** | 141,431,293 | 13.288 | 0.00% | 102B / 100B |
+| **wangHash** | 120,451,554 | 13.288 | 0.00% | 116B / 99B |
+| **splitMix** | 74,587,507 | 13.288 | 0.00% | 150B / 109B |
+| **squirrel5** | 57,921,521 | 13.288 | 0.00% | 233B / 156B |
+| **mulberry** | 41,400,674 | 13.262 | 1.31% | 138B / 121B |
+| **squirrel3** | 39,262,467 | 13.288 | 0.00% | 159B / 131B |
+| **fastMix** | 202,004,491 | 13.288 | 0.00% | 328B / 174B |
+| **jenkinsMix** | 34,284,984 | 13.288 | 0.00% | 207B / 120B |
+| **splitMix64** | 7,428,126 | 13.288 | 0.00% | 156B / 131B (BigInt) |
+| **fastMix64** | 6,502,475 | 13.288 | 0.00% | 379B / 202B (BigInt) |
+| **wangHash64** | 4,578,228 | 13.288 | 0.00% | 177B / 122B (BigInt) |
 
 > [!NOTE]
 > 64-bit integer algorithms (`splitMix64`, `fastMix64`, `wangHash64`) use native JavaScript `bigint` which has significantly higher VM overhead than 32-bit double-precision numbers. For high-frequency loops, 32-bit mixers are recommended.
@@ -156,43 +156,42 @@ Ideal for seed expansion, grid maps, and PRNG state transitions.
 ### 2. Stream & Buffer Hashing (String Keys / UUIDs)
 Best for arbitrary object hashing, cache keys, and asset paths.
 
-| Algorithm | Gen Speed (ops/s) | Entropy | Collision Rate | Bundle Size (Minified) |
+| Algorithm | Gen Speed (ops/s) | Entropy | Collision Rate | Bundle Size (Minified & Brotli) |
 | :--- | :---: | :---: | :---: | :---: |
-| **fxHash** | 2,127,756 | 13.288 | 0.00% | **789B** |
-| **fastMixHash** | 1,997,700 | 13.288 | 0.00% | 1.01KB |
-| **crc32** | 1,951,884 | 13.288 | 0.00% | 794B |
-| **murmur3Hash** | 1,866,905 | 13.288 | 0.00% | 1.10KB |
-| **jenkinsMixHash** | 1,864,775 | 13.288 | 0.00% | 1.47KB |
-| **jenkinsHash** | 1,913,135 | 13.288 | 0.00% | 688B |
-| **fnv1aHash** | 1,654,602 | 13.288 | 0.00% | 704B |
-| **fastHash** | 1,047,493 | 13.288 | 0.00% | 913B |
-| **mash** | 845,016 | 13.288 | 0.00% | 806B |
-| **xxHash** | 715,223 | 13.288 | 0.00% | 1.20KB |
-| **fnv1a64Hash** | 550,573 | 13.288 | 0.00% | 709B (BigInt) |
-| **crc64** | 412,227 | 13.288 | 0.00% | 837B (BigInt) |
-| **wyHash** | 367,221 | 13.288 | 0.00% | 1.23KB |
-| **murmur3Hash128**| 310,626 | 13.288 | 0.00% | 1.73KB |
-| **xxHash64** | 228,030 | 13.288 | 0.00% | 1.40KB (BigInt) |
-| **mash64** | 174,856 | 13.288 | 0.00% | 1.00KB (BigInt) |
-| **sipHash13** | 164,824 | 13.288 | 0.00% | 1.37KB |
+| **jenkinsHash** | 1,913,135 | 13.288 | 0.00% | 688B / 339B |
+| **fnv1aHash** | 1,654,602 | 13.288 | 0.00% | 704B / 349B |
+| **fnv1a64Hash**| 550,573 | 13.288 | 0.00% | 709B / 386B (BigInt) |
+| **fxHash** | 2,127,756 | 13.288 | 0.00% | 789B / 378B |
+| **crc32** | 1,951,884 | 13.288 | 0.00% | 794B / 403B |
+| **mash** | 845,016 | 13.288 | 0.00% | 806B / 409B |
+| **crc64** | 412,227 | 13.288 | 0.00% | 837B / 438B (BigInt) |
+| **fastHash** | 1,047,493 | 13.288 | 0.00% | 913B / 432B |
+| **mash64** | 174,856 | 13.288 | 0.00% | 1000B / 474B (BigInt) |
+| **fastMixHash**| 1,997,700 | 13.288 | 0.00% | 1.01KB / 474B |
+| **murmur3Hash**| 1,866,905 | 13.288 | 0.00% | 1.10KB / 514B |
+| **xxHash** | 715,223 | 13.288 | 0.00% | 1.20KB / 581B |
+| **wyHash** | 367,221 | 13.288 | 0.00% | 1.23KB / 630B |
+| **sipHash13** | 164,824 | 13.288 | 0.00% | 1.37KB / 640B |
+| **xxHash64** | 228,030 | 13.288 | 0.00% | 1.40KB / 682B (BigInt) |
+| **jenkinsMixHash** | 1,864,775 | 13.288 | 0.00% | 1.47KB / 532B |
+| **murmur3Hash128**| 310,626 | 13.288 | 0.00% | 1.73KB / 743B |
 
 ### 3. Pairing Functions (2D/3D Grid Coordinates)
 
-| Algorithm | Gen Speed (ops/s) | Collision Rate | Bundle Size (Minified) |
+| Algorithm | Gen Speed (ops/s) | Collision Rate | Bundle Size (Minified & Brotli) |
 | :--- | :---: | :---: | :---: |
-| **szudzikPair** | 96,845,369 | 0.00% | 1.00KB |
-| **cantorPair** | 49,689,871 | 0.00% | 1.00KB |
-| **szudzikPair3D** | ~48,000,000 | 0.00% | 1.00KB (Composed) |
+| **cantorPair** | 49,689,871 | 0.00% | 395B / 216B |
+| **szudzikPair**| 96,845,369 | 0.00% | 511B / 249B (Includes 3D pair) |
 
 ### 4. Normalization, Adaptation & Bitwise Utilities
 
 High-speed, zero-allocation adapters to bridge coordinates, floats, and hash representations.
 
-| Utility | Description | Speed (ops/s) | Bundle Size (Minified) |
+| Utility | Description | Speed (ops/s) | Bundle Size (Minified & Brotli) |
 | :--- | :--- | :---: | :---: |
-| **mapSignedInt** | Projects negative coordinates to non-negative bounds | ~150,000,000+ | < 100B |
-| **fold64To32** | XOR-collapses 64-bit BigInt to 32-bit uint preserving entropy | ~80,000,000+ | < 100B |
-| **floatToBits32** | Extracts IEEE-754 bit pattern from 32-bit float | ~60,000,000+ | < 150B |
+| **mapSignedInt** | Projects negative coordinates to non-negative bounds | ~150,000,000+ | < 100B / < 70B |
+| **fold64To32** | XOR-collapses 64-bit BigInt to 32-bit uint preserving entropy | ~80,000,000+ | < 100B / < 70B |
+| **floatToBits32** | Extracts IEEE-754 bit pattern from 32-bit float | ~60,000,000+ | < 150B / < 100B |
 
 ---
 
