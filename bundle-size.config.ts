@@ -1,4 +1,4 @@
-const mainBundles = ["bundles/bundle.js", "bundles/integer.js", "bundles/stream.js"];
+const mainBundles = ["bundles/bundle.js", "bundles/integer.js", "bundles/stream.js", "bundles/util.js"];
 
 export default {
   groups: [

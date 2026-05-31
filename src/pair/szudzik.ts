@@ -30,3 +30,28 @@ export const reverseSzudzikPair = (z: number): [number, number] => {
   const sq = sqrtZ * sqrtZ;
   return z - sq < sqrtZ ? [z - sq, sqrtZ] : [sqrtZ, z - sq - sqrtZ];
 };
+
+/**
+ * szudzikPair3D — Map three non-negative integers to a single unique non-negative integer.
+ * Perfect for 3D coordinate mapping.
+ *
+ * @param {number} x - First non-negative integer.
+ * @param {number} y - Second non-negative integer.
+ * @param {number} z - Third non-negative integer.
+ * @returns {number} The paired unique integer.
+ */
+export const szudzikPair3D = (x: number, y: number, z: number): number => {
+  return szudzikPair(szudzikPair(x, y), z);
+};
+
+/**
+ * reverseSzudzikPair3D — Reverses the 3D Szudzik pairing function.
+ *
+ * @param {number} z3 - The paired 3D integer.
+ * @returns {[number, number, number]} An array containing the original [x, y, z] coordinates.
+ */
+export const reverseSzudzikPair3D = (z3: number): [number, number, number] => {
+  const [xy, z] = reverseSzudzikPair(z3);
+  const [x, y] = reverseSzudzikPair(xy);
+  return [x, y, z];
+};
