@@ -409,7 +409,7 @@ The original unmixed 64-bit integer.
 function floatToBits32(f): number;
 ```
 
-Defined in: util/float-to-bits.ts:11
+Defined in: [util/float-to-bits.ts:11](https://github.com/fimbul-works/hash/blob/main/src/util/float-to-bits.ts#L11)
 
 floatToBits32 — Extract the raw IEEE-754 32-bit single-precision float bit pattern as an unsigned integer.
 Useful for bitwise hashing of fractional floats.
@@ -434,7 +434,7 @@ The 32-bit unsigned integer bit pattern.
 function floatToBits64(f): bigint;
 ```
 
-Defined in: util/float-to-bits.ts:22
+Defined in: [util/float-to-bits.ts:22](https://github.com/fimbul-works/hash/blob/main/src/util/float-to-bits.ts#L22)
 
 floatToBits64 — Extract the raw IEEE-754 64-bit double-precision float bit pattern as a 64-bit BigInt.
 
@@ -514,7 +514,7 @@ The computed 32-bit unsigned hash.
 function fold64To32(n): number;
 ```
 
-Defined in: util/fold64-to-32.ts:8
+Defined in: [util/fold64-to-32.ts:8](https://github.com/fimbul-works/hash/blob/main/src/util/fold64-to-32.ts#L8)
 
 fold64To32 — Bijectively fold an unsigned 64-bit BigInt into a 32-bit unsigned integer.
 Blends entropy from the upper and lower 32 bits.
@@ -733,7 +733,7 @@ The computed 32-bit unsigned hash.
 function mapSignedInt(n): number;
 ```
 
-Defined in: util/map-signed-int.ts:11
+Defined in: [util/map-signed-int.ts:11](https://github.com/fimbul-works/hash/blob/main/src/util/map-signed-int.ts#L11)
 
 mapSignedInt — Bijectively map any signed 32-bit integer to a non-negative integer.
 Maps: 0 -> 0, -1 -> 1, 1 -> 2, -2 -> 3, 2 -> 4, etc.
@@ -1142,7 +1142,7 @@ The paired unique integer.
 function unmapSignedInt(n): number;
 ```
 
-Defined in: util/map-signed-int.ts:24
+Defined in: [util/map-signed-int.ts:24](https://github.com/fimbul-works/hash/blob/main/src/util/map-signed-int.ts#L24)
 
 unmapSignedInt — Bijectively restore a non-negative integer back to a signed 32-bit integer.
 
