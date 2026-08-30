@@ -99,8 +99,8 @@ export const createSpongeHash = (
         for (let i = 1; i < numRegisters; i++) {
             hash = hasher(hash, reg[(idx + i) % numRegisters]);
         }
-        // Feedback hash into the current register to evolve the state
-        reg[idx] = (hash ^ PHI_FRACTION) >>> 0;
+
+        reg[idx] = hasher(reg[idx], hash ^ PHI_FRACTION);
         idx = (idx + 1) % numRegisters;
         return hash >>> 0;
     };
@@ -110,10 +110,7 @@ export const createSpongeHash = (
     const fork = (forkData?: unknown) => {
         const child = createSpongeHash(null, numRegisters, hasher);
         child.setState(getState());
-        if (forkData !== undefined) {
-            child.ingest(forkData);
-        }
-        return child;
+        return child.ingest(forkData);
     };
 
     const getState = (): Uint32Array => {
@@ -127,10 +124,12 @@ export const createSpongeHash = (
         if (state.length !== numRegisters + 1) {
             throw new RangeError("State array must have length numRegisters + 1");
         }
+
         idx = state[0] >>> 0;
         if (idx >= numRegisters) {
             throw new RangeError("Index out of range");
         }
+
         for (let i = 0; i < numRegisters; i++) {
             reg[i] = state[i + 1] >>> 0;
         }
