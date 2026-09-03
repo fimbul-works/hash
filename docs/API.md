@@ -64,124 +64,6 @@ A bit-width variant of Mash that produces 64-bit bigint results.
 | ------ | ------ | ------ | ------ | ------ |
 | <a id="property-state-1"></a> `state` | `readonly` | `bigint` | Current internal state. Pass to `createMash64` to fork from this point. | [mash/mash64.ts:10](https://github.com/fimbul-works/hash/blob/main/src/mash/mash64.ts#L10) |
 
-***
-
-### SpongeHash
-
-Defined in: sponge-hash.ts:10
-
-Interface for a generic sponge object.
-
-The larger the register, the more entropy is stored in the sponge,
-but it also takes longer to mix.
-
-#### Methods
-
-##### fork()
-
-```ts
-fork(data?): SpongeHash;
-```
-
-Defined in: sponge-hash.ts:34
-
-Fork the sponge, mixing in new data to the current state.
-The returned sponge will have its own independent state.
-
-###### Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| `data?` | `unknown` |
-
-###### Returns
-
-[`SpongeHash`](#spongehash)
-
-##### getState()
-
-```ts
-getState(): Uint32Array;
-```
-
-Defined in: sponge-hash.ts:39
-
-Get the current sponge state.
-
-###### Returns
-
-`Uint32Array`
-
-##### ingest()
-
-```ts
-ingest(data): SpongeHash;
-```
-
-Defined in: sponge-hash.ts:28
-
-Ingest new data into the sponge, updating the internal state.
-This method is useful for incorporating additional data into the sponge
-after it has been initialized.
-
-###### Parameters
-
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `data` | `unknown` | Data to ingest. |
-
-###### Returns
-
-[`SpongeHash`](#spongehash)
-
-##### next()
-
-```ts
-next(): number;
-```
-
-Defined in: sponge-hash.ts:14
-
-Produce the next 32-bit integer hash
-
-###### Returns
-
-`number`
-
-##### nextFloat()
-
-```ts
-nextFloat(): number;
-```
-
-Defined in: sponge-hash.ts:19
-
-Produce the next 32-bit integer hash as a float in range [0, 1]
-
-###### Returns
-
-`number`
-
-##### setState()
-
-```ts
-setState(state): void;
-```
-
-Defined in: sponge-hash.ts:44
-
-Set the current sponge state.
-
-###### Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| `state` | `Uint32Array` |
-
-###### Returns
-
-`void`
-
 ## Type Aliases
 
 ### BitWidth
@@ -292,9 +174,49 @@ The computed 32-bit unsigned hash.
 function crc64(data): bigint;
 ```
 
-Defined in: [stream/crc64.ts:25](https://github.com/fimbul-works/hash/blob/main/src/stream/crc64.ts#L25)
+Defined in: [stream/crc64.ts:34](https://github.com/fimbul-works/hash/blob/main/src/stream/crc64.ts#L34)
 
-Compute the CRC-64 hash of the input data.
+Compute the CRC-64 hash of the input data adhering to the canonical ECMA-182 standard.
+
+Parameters:
+- Polynomial: 0x42F0E1EBA9EA3693
+- Initial value: 0x0000000000000000
+- RefIn: false (MSB-first)
+- RefOut: false (MSB-first)
+- XorOut: 0x0000000000000000
+- Check value ("123456789"): 0x6C40DF5F0B497347
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `data` | `unknown` | The input data to hash. |
+
+#### Returns
+
+`bigint`
+
+The computed 64-bit unsigned hash.
+
+***
+
+### crc64Xz()
+
+```ts
+function crc64Xz(data): bigint;
+```
+
+Defined in: [stream/crc64-xz.ts:33](https://github.com/fimbul-works/hash/blob/main/src/stream/crc64-xz.ts#L33)
+
+Compute the CRC-64/XZ (also known as CRC-64/GO-ECMA) hash of the input data.
+
+Parameters:
+- Polynomial: 0x42F0E1EBA9EA3693 (reflected: 0xC96C5795D7870F42)
+- Initial value: 0xFFFFFFFFFFFFFFFF
+- RefIn: true (LSB-first)
+- RefOut: true (LSB-first)
+- XorOut: 0xFFFFFFFFFFFFFFFF
+- Check value ("123456789"): 0x995DC9BBDF1939FA
 
 #### Parameters
 
@@ -361,33 +283,6 @@ hashing from the current state.
 [`Mash64`](#mash64)
 
 A hash function with a state property that produces 64-bit hashes.
-
-***
-
-### createSpongeHash()
-
-```ts
-function createSpongeHash(
-   data, 
-   numRegisters?, 
-   hasher?): SpongeHash;
-```
-
-Defined in: sponge-hash.ts:54
-
-Create a new sponge hash.
-
-#### Parameters
-
-| Parameter | Type | Default value | Description |
-| ------ | ------ | ------ | ------ |
-| `data` | `unknown` | `undefined` | Initial data to ingest. |
-| `numRegisters?` | `number` | `16` | Number of registers to use. Default: 16 |
-| `hasher?` | (`x`, `seed`) => `number` | `fastMix` | Hasher function to use. Default: `fastMix` |
-
-#### Returns
-
-[`SpongeHash`](#spongehash)
 
 ***
 

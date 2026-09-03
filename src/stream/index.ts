@@ -1,5 +1,6 @@
 export * from "./crc32.js";
 export * from "./crc64.js";
+export * from "./crc64-xz.js";
 export * from "./fast-hash.js";
 export * from "./fast-mix-hash.js";
 export * from "./fnv1a.js";
