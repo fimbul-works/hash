@@ -66,37 +66,61 @@ A bit-width variant of Mash that produces 64-bit bigint results.
 
 ***
 
-### SpongeHash
+### Sponge
 
-Defined in: sponge-hash.ts:10
+Defined in: sponge.ts:10
 
-Interface for a generic sponge object.
+Interface for a stateful sponge hasher.
 
-The larger the register, the more entropy is stored in the sponge,
-but it also takes longer to mix.
+Absorbs arbitrary data into internal registers and squeezes out deterministic
+32-bit integers or child sponges for hierarchical procedural generation.
 
 #### Methods
+
+##### absorb()
+
+```ts
+absorb(data): Sponge;
+```
+
+Defined in: sponge.ts:22
+
+Absorbs data into internal registers, mutating the state in-place.
+
+###### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `data` | `unknown` | Primitive, object, or buffer to mix into state. |
+
+###### Returns
+
+[`Sponge`](#sponge)
+
+The sponge instance for method chaining.
 
 ##### fork()
 
 ```ts
-fork(data?): SpongeHash;
+fork(data?): Sponge;
 ```
 
-Defined in: sponge-hash.ts:34
+Defined in: sponge.ts:31
 
-Fork the sponge, mixing in new data to the current state.
-The returned sponge will have its own independent state.
+Creates an independent sponge initialized with the current state,
+optionally absorbing additional child data.
 
 ###### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `data?` | `unknown` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `data?` | `unknown` | Optional data to mix into the child state. |
 
 ###### Returns
 
-[`SpongeHash`](#spongehash)
+[`Sponge`](#sponge)
+
+A new, independent Sponge instance.
 
 ##### getState()
 
@@ -104,35 +128,16 @@ The returned sponge will have its own independent state.
 getState(): Uint32Array;
 ```
 
-Defined in: sponge-hash.ts:39
+Defined in: sponge.ts:39
 
-Get the current sponge state.
+Exports the current internal state index and register values.
 
 ###### Returns
 
 `Uint32Array`
 
-##### ingest()
-
-```ts
-ingest(data): SpongeHash;
-```
-
-Defined in: sponge-hash.ts:28
-
-Ingest new data into the sponge, updating the internal state.
-This method is useful for incorporating additional data into the sponge
-after it has been initialized.
-
-###### Parameters
-
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `data` | `unknown` | Data to ingest. |
-
-###### Returns
-
-[`SpongeHash`](#spongehash)
+A Uint32Array of length `numRegisters + 1`,
+         where the first element is the current index and the rest are register values.
 
 ##### next()
 
@@ -140,23 +145,9 @@ after it has been initialized.
 next(): number;
 ```
 
-Defined in: sponge-hash.ts:14
+Defined in: sponge.ts:14
 
-Produce the next 32-bit integer hash
-
-###### Returns
-
-`number`
-
-##### nextFloat()
-
-```ts
-nextFloat(): number;
-```
-
-Defined in: sponge-hash.ts:19
-
-Produce the next 32-bit integer hash as a float in range [0, 1]
+Squeezes the next deterministic unsigned 32-bit integer.
 
 ###### Returns
 
@@ -165,22 +156,24 @@ Produce the next 32-bit integer hash as a float in range [0, 1]
 ##### setState()
 
 ```ts
-setState(state): void;
+setState(state): Sponge;
 ```
 
-Defined in: sponge-hash.ts:44
+Defined in: sponge.ts:47
 
-Set the current sponge state.
+Restores internal state from a previously exported array.
 
 ###### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `state` | `Uint32Array` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `state` | `Uint32Array` | Uint32Array of length `numRegisters + 1`. |
 
 ###### Returns
 
-`void`
+[`Sponge`](#sponge)
+
+The sponge instance for method chaining.
 
 ## Type Aliases
 
@@ -292,9 +285,49 @@ The computed 32-bit unsigned hash.
 function crc64(data): bigint;
 ```
 
-Defined in: [stream/crc64.ts:25](https://github.com/fimbul-works/hash/blob/main/src/stream/crc64.ts#L25)
+Defined in: [stream/crc64.ts:34](https://github.com/fimbul-works/hash/blob/main/src/stream/crc64.ts#L34)
 
-Compute the CRC-64 hash of the input data.
+Compute the CRC-64 hash of the input data adhering to the canonical ECMA-182 standard.
+
+Parameters:
+- Polynomial: 0x42F0E1EBA9EA3693
+- Initial value: 0x0000000000000000
+- RefIn: false (MSB-first)
+- RefOut: false (MSB-first)
+- XorOut: 0x0000000000000000
+- Check value ("123456789"): 0x6C40DF5F0B497347
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `data` | `unknown` | The input data to hash. |
+
+#### Returns
+
+`bigint`
+
+The computed 64-bit unsigned hash.
+
+***
+
+### crc64Xz()
+
+```ts
+function crc64Xz(data): bigint;
+```
+
+Defined in: [stream/crc64-xz.ts:33](https://github.com/fimbul-works/hash/blob/main/src/stream/crc64-xz.ts#L33)
+
+Compute the CRC-64/XZ (also known as CRC-64/GO-ECMA) hash of the input data.
+
+Parameters:
+- Polynomial: 0x42F0E1EBA9EA3693 (reflected: 0xC96C5795D7870F42)
+- Initial value: 0xFFFFFFFFFFFFFFFF
+- RefIn: true (LSB-first)
+- RefOut: true (LSB-first)
+- XorOut: 0xFFFFFFFFFFFFFFFF
+- Check value ("123456789"): 0x995DC9BBDF1939FA
 
 #### Parameters
 
@@ -364,18 +397,18 @@ A hash function with a state property that produces 64-bit hashes.
 
 ***
 
-### createSpongeHash()
+### createSponge()
 
 ```ts
-function createSpongeHash(
+function createSponge(
    data, 
    numRegisters?, 
-   hasher?): SpongeHash;
+   mix?): Sponge;
 ```
 
-Defined in: sponge-hash.ts:54
+Defined in: sponge.ts:58
 
-Create a new sponge hash.
+Create a new Sponge hasher object.
 
 #### Parameters
 
@@ -383,11 +416,11 @@ Create a new sponge hash.
 | ------ | ------ | ------ | ------ |
 | `data` | `unknown` | `undefined` | Initial data to ingest. |
 | `numRegisters?` | `number` | `16` | Number of registers to use. Default: 16 |
-| `hasher?` | (`x`, `seed`) => `number` | `fastMix` | Hasher function to use. Default: `fastMix` |
+| `mix?` | (`x`, `y`) => `number` | `fastMix` | Mixing function to use. Default: `fastMix` |
 
 #### Returns
 
-[`SpongeHash`](#spongehash)
+[`Sponge`](#sponge)
 
 ***
 

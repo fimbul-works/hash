@@ -6,6 +6,7 @@ const entryPoints: Record<string, string> = {
   bundle: "src/index.ts",
   integer: "src/integer/index.ts",
   stream: "src/stream/index.ts",
+  sponge: "src/sponge.ts",
   util: "src/util/index.ts",
 };
 
@@ -38,7 +39,7 @@ const commonConfig: UserConfig = {
   },
 };
 
-const mainBundles = ["bundle", "integer", "stream", "util"];
+const mainBundles = ["bundle", "integer", "stream", "sponge", "util"];
 
 export default defineConfig(
   Object.entries(entryPoints).map(([key, entry]) => ({

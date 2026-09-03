@@ -2,9 +2,13 @@ import { describe, expect, it } from "vitest";
 import { crc32 } from "./crc32.js";
 
 describe("crc32", () => {
-  it("should produce consistent results", () => {
+  it("should match canonical CRC-32 (IEEE 802.3 / ISO 3309) check vectors", () => {
+    // Canonical standard test vector
+    expect(crc32("123456789")).toBe(0xcbf43926);
+    expect(crc32("")).toBe(0x00000000);
     expect(crc32("hello")).toBe(0x3610a686);
     expect(crc32("world")).toBe(0x3a771143);
+    expect(crc32("The quick brown fox jumps over the lazy dog")).toBe(0x414fa339);
   });
 
   it("should handle different inputs", () => {
