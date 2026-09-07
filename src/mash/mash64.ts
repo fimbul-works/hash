@@ -1,3 +1,4 @@
+import { INT_32, MASH_CONSTANT, MASK_32, MASK_64 } from "../constants.js";
 import { getBytes } from "../util/get-bytes.js";
 
 /**
@@ -20,30 +21,30 @@ export interface Mash64 {
  * @returns {Mash64} A hash function with a state property that produces 64-bit hashes.
  */
 export const createMash64 = (seed: number | bigint = 0xefc8249d): Mash64 => {
-  let s = BigInt(seed) & 0xffffffffffffffffn;
+  let s = BigInt(seed) & MASK_64;
 
   function mash(data: unknown): bigint {
     const bytes = getBytes(data);
     for (let i = 0; i < bytes.length; i++) {
       // High 32 bits
       let nh = Number(s >> 32n) + bytes[i];
-      let h = 0.02519603282416938 * 1.5 * nh;
+      let h = MASH_CONSTANT * 1.5 * nh;
       let v = h >>> 0;
       h -= v;
       h *= v;
       v = h >>> 0;
       h -= v;
-      nh = v + Math.floor(h * 0x100000000);
+      nh = v + Math.floor(h * INT_32);
 
       // Low 32 bits
-      let nl = Number(s & 0xffffffffn) + bytes[i];
-      h = 0.02519603282416938 * nl;
+      let nl = Number(s & MASK_32) + bytes[i];
+      h = MASH_CONSTANT * nl;
       v = h >>> 0;
       h -= v;
       h *= v;
       v = h >>> 0;
       h -= v;
-      nl = v + Math.floor(h * 0x100000000);
+      nl = v + Math.floor(h * INT_32);
 
       s = (BigInt(nh) << 32n) | BigInt(nl);
     }

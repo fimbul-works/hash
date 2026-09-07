@@ -4,7 +4,7 @@
 
 ### Mash()
 
-Defined in: [mash/mash.ts:6](https://github.com/fimbul-works/hash/blob/main/src/mash/mash.ts#L6)
+Defined in: [mash/mash.ts:7](https://github.com/fimbul-works/hash/blob/main/src/mash/mash.ts#L7)
 
 A stateful hash function that accumulates internal state across calls.
 
@@ -12,7 +12,7 @@ A stateful hash function that accumulates internal state across calls.
 Mash(data): number;
 ```
 
-Defined in: [mash/mash.ts:7](https://github.com/fimbul-works/hash/blob/main/src/mash/mash.ts#L7)
+Defined in: [mash/mash.ts:8](https://github.com/fimbul-works/hash/blob/main/src/mash/mash.ts#L8)
 
 A stateful hash function that accumulates internal state across calls.
 
@@ -30,13 +30,13 @@ A stateful hash function that accumulates internal state across calls.
 
 | Property | Modifier | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| <a id="property-state"></a> `state` | `readonly` | `number` | Current internal state. Pass to `createMash` to fork from this point. | [mash/mash.ts:10](https://github.com/fimbul-works/hash/blob/main/src/mash/mash.ts#L10) |
+| <a id="property-state"></a> `state` | `readonly` | `number` | Current internal state. Pass to `createMash` to fork from this point. | [mash/mash.ts:11](https://github.com/fimbul-works/hash/blob/main/src/mash/mash.ts#L11) |
 
 ***
 
 ### Mash64()
 
-Defined in: [mash/mash64.ts:6](https://github.com/fimbul-works/hash/blob/main/src/mash/mash64.ts#L6)
+Defined in: [mash/mash64.ts:7](https://github.com/fimbul-works/hash/blob/main/src/mash/mash64.ts#L7)
 
 A bit-width variant of Mash that produces 64-bit bigint results.
 
@@ -44,7 +44,7 @@ A bit-width variant of Mash that produces 64-bit bigint results.
 Mash64(data): bigint;
 ```
 
-Defined in: [mash/mash64.ts:7](https://github.com/fimbul-works/hash/blob/main/src/mash/mash64.ts#L7)
+Defined in: [mash/mash64.ts:8](https://github.com/fimbul-works/hash/blob/main/src/mash/mash64.ts#L8)
 
 A bit-width variant of Mash that produces 64-bit bigint results.
 
@@ -62,7 +62,7 @@ A bit-width variant of Mash that produces 64-bit bigint results.
 
 | Property | Modifier | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| <a id="property-state-1"></a> `state` | `readonly` | `bigint` | Current internal state. Pass to `createMash64` to fork from this point. | [mash/mash64.ts:10](https://github.com/fimbul-works/hash/blob/main/src/mash/mash64.ts#L10) |
+| <a id="property-state-1"></a> `state` | `readonly` | `bigint` | Current internal state. Pass to `createMash64` to fork from this point. | [mash/mash64.ts:11](https://github.com/fimbul-works/hash/blob/main/src/mash/mash64.ts#L11) |
 
 ***
 
@@ -75,6 +75,12 @@ Interface for a stateful sponge hasher.
 Absorbs arbitrary data into internal registers and squeezes out deterministic
 32-bit integers or child sponges for hierarchical procedural generation.
 
+#### Properties
+
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="property-size"></a> `size` | `readonly` | `number` | The number of registers used for hashing | [sponge.ts:13](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L13) |
+
 #### Methods
 
 ##### absorb()
@@ -83,7 +89,7 @@ Absorbs arbitrary data into internal registers and squeezes out deterministic
 absorb(data): Sponge;
 ```
 
-Defined in: [sponge.ts:23](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L23)
+Defined in: [sponge.ts:26](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L26)
 
 Absorbs data into internal registers, mutating the state in-place.
 
@@ -105,7 +111,7 @@ The sponge instance for method chaining.
 fork(data?): Sponge;
 ```
 
-Defined in: [sponge.ts:32](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L32)
+Defined in: [sponge.ts:35](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L35)
 
 Creates an independent sponge initialized with the current state,
 optionally absorbing additional child data.
@@ -128,7 +134,7 @@ A new, independent Sponge instance.
 getState(): Uint32Array;
 ```
 
-Defined in: [sponge.ts:40](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L40)
+Defined in: [sponge.ts:43](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L43)
 
 Exports the current internal state index and register values.
 
@@ -145,7 +151,7 @@ A Uint32Array of length `numRegisters + 1`,
 next(): number;
 ```
 
-Defined in: [sponge.ts:15](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L15)
+Defined in: [sponge.ts:18](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L18)
 
 Squeezes the next deterministic unsigned 32-bit integer.
 
@@ -159,7 +165,7 @@ Squeezes the next deterministic unsigned 32-bit integer.
 setState(state): Sponge;
 ```
 
-Defined in: [sponge.ts:48](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L48)
+Defined in: [sponge.ts:51](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L51)
 
 Restores internal state from a previously exported array.
 
@@ -183,7 +189,7 @@ The sponge instance for method chaining.
 type BitWidth = number;
 ```
 
-Defined in: [util/clamp-bits.ts:6](https://github.com/fimbul-works/hash/blob/main/src/util/clamp-bits.ts#L6)
+Defined in: [util/clamp-bits.ts:8](https://github.com/fimbul-works/hash/blob/main/src/util/clamp-bits.ts#L8)
 
 Supported bit widths for hash output clamping.
 Note: 53 is Number.MAX_SAFE_INTEGER's bit length — the largest value that fits
@@ -228,7 +234,7 @@ Will throw an error if either x or y is not a non-negative integer.
 function clampBits(hash, bits): number | bigint;
 ```
 
-Defined in: [util/clamp-bits.ts:38](https://github.com/fimbul-works/hash/blob/main/src/util/clamp-bits.ts#L38)
+Defined in: [util/clamp-bits.ts:40](https://github.com/fimbul-works/hash/blob/main/src/util/clamp-bits.ts#L40)
 
 Clamp a hash output to the specified number of bits (2 to 64).
 
@@ -349,7 +355,7 @@ The computed 64-bit unsigned hash.
 function createMash(seed?): Mash;
 ```
 
-Defined in: [mash/mash.ts:22](https://github.com/fimbul-works/hash/blob/main/src/mash/mash.ts#L22)
+Defined in: [mash/mash.ts:23](https://github.com/fimbul-works/hash/blob/main/src/mash/mash.ts#L23)
 
 Create a new Mash instance.
 
@@ -376,7 +382,7 @@ A hash function with a state property.
 function createMash64(seed?): Mash64;
 ```
 
-Defined in: [mash/mash64.ts:22](https://github.com/fimbul-works/hash/blob/main/src/mash/mash64.ts#L22)
+Defined in: [mash/mash64.ts:23](https://github.com/fimbul-works/hash/blob/main/src/mash/mash64.ts#L23)
 
 Create a new 64-bit Mash instance.
 
@@ -402,11 +408,11 @@ A hash function with a state property that produces 64-bit hashes.
 ```ts
 function createSponge(
    data, 
-   numRegisters?, 
+   size?, 
    mix?): Sponge;
 ```
 
-Defined in: [sponge.ts:59](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L59)
+Defined in: [sponge.ts:62](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L62)
 
 Create a new Sponge hasher object.
 
@@ -415,7 +421,7 @@ Create a new Sponge hasher object.
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `data` | `unknown` | `undefined` | Initial data to ingest. |
-| `numRegisters?` | `number` | `16` | Number of registers to use. Default: 16 |
+| `size?` | `number` | `16` | Number of registers to use. Default: 16 |
 | `mix?` | (`x`, `y`) => `number` | `fastMix` | Mixing function to use. Default: `fastMix` |
 
 #### Returns
@@ -664,7 +670,7 @@ The computed 64-bit hash as a bigint
 function fnv1aHash(data, seed?): number;
 ```
 
-Defined in: [stream/fnv1a.ts:13](https://github.com/fimbul-works/hash/blob/main/src/stream/fnv1a.ts#L13)
+Defined in: [stream/fnv1a.ts:14](https://github.com/fimbul-works/hash/blob/main/src/stream/fnv1a.ts#L14)
 
 Compute the Fowler–Noll–Vo 1a 32-bit hash of the input data.
 
@@ -692,7 +698,7 @@ The computed 32-bit unsigned hash.
 function fold64To32(n): number;
 ```
 
-Defined in: [util/fold64-to-32.ts:8](https://github.com/fimbul-works/hash/blob/main/src/util/fold64-to-32.ts#L8)
+Defined in: [util/fold64-to-32.ts:10](https://github.com/fimbul-works/hash/blob/main/src/util/fold64-to-32.ts#L10)
 
 fold64To32 — Bijectively fold an unsigned 64-bit BigInt into a 32-bit unsigned integer.
 Blends entropy from the upper and lower 32 bits.
@@ -717,7 +723,7 @@ An unsigned 32-bit integer.
 function fxHash(data, seed?): number;
 ```
 
-Defined in: [stream/fx-hash.ts:12](https://github.com/fimbul-works/hash/blob/main/src/stream/fx-hash.ts#L12)
+Defined in: [stream/fx-hash.ts:13](https://github.com/fimbul-works/hash/blob/main/src/stream/fx-hash.ts#L13)
 
 FxHash32 — streaming variant of the FxHasher used in Firefox's Rust codebase.
 Processes 4 bytes per iteration: rotate-left 5, XOR word, multiply by golden ratio.
@@ -744,7 +750,7 @@ The computed 32-bit unsigned hash.
 function getBytes(data, littleEndian?): Uint8Array;
 ```
 
-Defined in: [util/get-bytes.ts:16](https://github.com/fimbul-works/hash/blob/main/src/util/get-bytes.ts#L16)
+Defined in: [util/get-bytes.ts:18](https://github.com/fimbul-works/hash/blob/main/src/util/get-bytes.ts#L18)
 
 Convert arbitrary data into a byte representation for use with hashing functions.
 
@@ -1097,7 +1103,7 @@ Will throw an error if z is not a non-negative integer.
 function reverseSzudzikPair3D(z3): [number, number, number];
 ```
 
-Defined in: [pair/szudzik.ts:53](https://github.com/fimbul-works/hash/blob/main/src/pair/szudzik.ts#L53)
+Defined in: [pair/szudzik.ts:51](https://github.com/fimbul-works/hash/blob/main/src/pair/szudzik.ts#L51)
 
 reverseSzudzikPair3D — Reverses the 3D Szudzik pairing function.
 
@@ -1150,7 +1156,7 @@ The computed 64-bit hash.
 function splitMix(n): number;
 ```
 
-Defined in: [integer/splitmix.ts:10](https://github.com/fimbul-works/hash/blob/main/src/integer/splitmix.ts#L10)
+Defined in: [integer/splitmix.ts:12](https://github.com/fimbul-works/hash/blob/main/src/integer/splitmix.ts#L12)
 
 SplitMix — 32-bit port of splitmix64.
 Applies a golden-ratio increment then MurmurHash3-style finalization.

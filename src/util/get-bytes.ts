@@ -1,3 +1,5 @@
+import { MASK_32 } from "../constants.js";
+
 /**
  * Convert arbitrary data into a byte representation for use with hashing functions.
  *
@@ -28,8 +30,8 @@ export const getBytes = (data: unknown, littleEndian: boolean = true): Uint8Arra
   if (typeof data === "bigint") {
     const buf = new ArrayBuffer(8);
     const view = new DataView(buf);
-    view.setUint32(0, Number(data & 0xffffffffn) >>> 0, littleEndian);
-    view.setUint32(4, Number((data >> 32n) & 0xffffffffn) >>> 0, littleEndian);
+    view.setUint32(0, Number(data & MASK_32) >>> 0, littleEndian);
+    view.setUint32(4, Number((data >> 32n) & MASK_32) >>> 0, littleEndian);
     return new Uint8Array(buf);
   }
 

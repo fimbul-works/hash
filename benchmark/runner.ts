@@ -26,11 +26,12 @@ const allAlgos = [
 
 const pairAlgos = Object.entries(pairHashes).map(([name, fn]) => ({
   name: `pair:${name}`,
-  fn: (v: number) => fn(v, v),
+  fn: (v: number) => fn(v, v, v),
   supportsStrings: false,
 })) as PairAlgo[];
 
-const bitWidths = [8, 16, 20, 24, 32, 53, 64];
+//const bitWidths = [8, 16, 20, 24, 32, 53, 64];
+const bitWidths = [32, 64];
 
 console.log(`\n=== Hashing Benchmark Suite ===`);
 console.log(`Data count: ${DATA_COUNT}\n`);

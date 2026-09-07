@@ -40,9 +40,7 @@ export const reverseSzudzikPair = (z: number): [number, number] => {
  * @param {number} z - Third non-negative integer.
  * @returns {number} The paired unique integer.
  */
-export const szudzikPair3D = (x: number, y: number, z: number): number => {
-  return szudzikPair(szudzikPair(x, y), z);
-};
+export const szudzikPair3D = (x: number, y: number, z: number): number => szudzikPair(szudzikPair(x, y), z);
 
 /**
  * reverseSzudzikPair3D — Reverses the 3D Szudzik pairing function.

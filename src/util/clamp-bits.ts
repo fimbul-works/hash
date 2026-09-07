@@ -1,3 +1,5 @@
+import { MASK_32 } from "../constants.js";
+
 /**
  * Supported bit widths for hash output clamping.
  * Note: 53 is Number.MAX_SAFE_INTEGER's bit length — the largest value that fits
@@ -46,7 +48,7 @@ export const clampBits = (hash: number | bigint, bits: BitWidth): number | bigin
 
   if (bits <= 32) {
     // Stay in number-land — no BigInt allocation
-    const n = typeof hash === "bigint" ? Number(hash & 0xffffffffn) : hash >>> 0;
+    const n = typeof hash === "bigint" ? Number(hash & MASK_32) : hash >>> 0;
     return (n & NUM_MASKS[bits]) >>> 0; // Force unsigned
   }
 

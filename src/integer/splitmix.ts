@@ -1,3 +1,5 @@
+import { PHI_FRACTION } from "../constants.js";
+
 /**
  * SplitMix — 32-bit port of splitmix64.
  * Applies a golden-ratio increment then MurmurHash3-style finalization.
@@ -8,7 +10,7 @@
  * @returns {number} The computed 32-bit unsigned hash.
  */
 export const splitMix = (n: number): number => {
-  n = (n + 0x9e3779b9) >>> 0;
+  n = (n + PHI_FRACTION) >>> 0;
   n ^= n >>> 16;
   n = Math.imul(n, 0x85ebca6b) >>> 0;
   n ^= n >>> 13;

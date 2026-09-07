@@ -1,3 +1,4 @@
+import { INT_32, MASH_CONSTANT } from "../constants.js";
 import { getBytes } from "../util/get-bytes.js";
 
 /**
@@ -26,13 +27,13 @@ export const createMash = (seed: number = 0xefc8249d): Mash => {
     const bytes = getBytes(data);
     for (let i = 0; i < bytes.length; i++) {
       s += bytes[i];
-      let h = 0.02519603282416938 * s;
+      let h = MASH_CONSTANT * s;
       s = h >>> 0;
       h -= s;
       h *= s;
       s = h >>> 0;
       h -= s;
-      s += h * 0x100000000;
+      s += h * INT_32;
     }
     return s >>> 0;
   }

@@ -1,3 +1,4 @@
+import { PHI_FRACTION } from "../constants.js";
 import { getBytes } from "../util/get-bytes.js";
 
 /**
@@ -17,12 +18,12 @@ export const fxHash = (data: unknown, seed: number = 0): number => {
 
   while (i + 4 <= len) {
     const word = (bytes[i] | (bytes[i + 1] << 8) | (bytes[i + 2] << 16) | (bytes[i + 3] << 24)) >>> 0;
-    hash = Math.imul(((hash << 5) | (hash >>> 27)) ^ word, 0x9e3779b9) >>> 0;
+    hash = Math.imul(((hash << 5) | (hash >>> 27)) ^ word, PHI_FRACTION) >>> 0;
     i += 4;
   }
 
   while (i < len) {
-    hash = Math.imul(((hash << 5) | (hash >>> 27)) ^ bytes[i], 0x9e3779b9) >>> 0;
+    hash = Math.imul(((hash << 5) | (hash >>> 27)) ^ bytes[i], PHI_FRACTION) >>> 0;
     i++;
   }
 

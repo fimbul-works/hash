@@ -1,3 +1,4 @@
+import { MASK_32 } from "../constants.js";
 import { getBytes } from "../util/get-bytes.js";
 
 /**
@@ -12,10 +13,10 @@ import { getBytes } from "../util/get-bytes.js";
  */
 export const fnv1aHash = (data: unknown, seed: number = 2166136261): number => {
   const bytes = getBytes(data);
-  let hash = BigInt(seed) & 0xffffffffn;
+  let hash = BigInt(seed) & MASK_32;
   for (let i = 0; i < bytes.length; i++) {
     hash ^= BigInt(bytes[i]);
-    hash = (hash * 16777619n) & 0xffffffffn;
+    hash = (hash * 16777619n) & MASK_32;
   }
   return Number(hash);
 };
