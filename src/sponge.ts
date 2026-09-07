@@ -108,9 +108,7 @@ export const createSponge = (
       return sponge;
     },
     fork(data?: unknown) {
-      const child = createSponge(null, size, mix);
-      child.setState(sponge.getState());
-      return child.absorb(data);
+      return createSponge(null, size, mix).setState(sponge.getState()).absorb(data);
     },
     getState(): Uint32Array {
       const state = new Uint32Array(size + 1);
