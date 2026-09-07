@@ -1,7 +1,7 @@
 {
   "name": "@fimbul-works/hash",
   "description": "A comprehensive collection of high-performance hashing algorithms for TypeScript and JavaScript",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "private": false,
   "license": "MIT",
@@ -28,6 +28,7 @@
     "prng",
     "seed",
     "noise",
+    "sponge",
     "procedural-generation",
     "game-dev",
     "cantor-pairing",
