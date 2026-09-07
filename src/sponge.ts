@@ -1,3 +1,4 @@
+import { diff } from "node:util";
 import { fastMix } from "./integer/fast-mix.js";
 import { getBytes } from "./util/get-bytes.js";
 
@@ -69,16 +70,25 @@ export const createSponge = (
   const reg = new Uint32Array(numRegisters).map((_, i) => Math.imul(i + 1, PHI_FRACTION) >>> 0);
   let idx = 0;
 
+  const diffuse = () => {
+    for (let pass = 0; pass < 2; pass++) {
+      for (let i = 0; i < numRegisters; i++) {
+        const prev = reg[(idx - 1 + numRegisters) % numRegisters];
+        reg[idx] = mix(reg[idx], prev);
+        idx = (idx + 1) % numRegisters;
+      }
+    }
+  };
+
   const sponge: Sponge = {
     next(): number {
-      let hash = reg[idx];
-      for (let i = 1; i < numRegisters; i++) {
-        hash = mix(hash, reg[(idx + i) % numRegisters]);
-      }
-
-      reg[idx] = mix(reg[idx], hash ^ PHI_FRACTION);
+      const val = reg[idx];
+      reg[idx] = mix(val, (PHI_FRACTION + idx) >>> 0);
       idx = (idx + 1) % numRegisters;
-      return hash >>> 0;
+      if (idx === 0) {
+        diffuse();
+      }
+      return val >>> 0;
     },
     absorb(data: unknown): Sponge {
       if (data === undefined || data === null || data === "") {
@@ -91,13 +101,7 @@ export const createSponge = (
         idx = (idx + 1) % numRegisters;
       }
 
-      // Diffuse
-      for (let i = 0; i < numRegisters; i++) {
-        const prev = reg[(idx - 1 + numRegisters) % numRegisters];
-        reg[idx] = mix(reg[idx], prev);
-        idx = (idx + 1) % numRegisters;
-      }
-
+      diffuse();
       return sponge;
     },
     fork(data?: unknown) {

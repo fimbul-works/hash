@@ -68,7 +68,7 @@ A bit-width variant of Mash that produces 64-bit bigint results.
 
 ### Sponge
 
-Defined in: sponge.ts:10
+Defined in: [sponge.ts:11](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L11)
 
 Interface for a stateful sponge hasher.
 
@@ -83,7 +83,7 @@ Absorbs arbitrary data into internal registers and squeezes out deterministic
 absorb(data): Sponge;
 ```
 
-Defined in: sponge.ts:22
+Defined in: [sponge.ts:23](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L23)
 
 Absorbs data into internal registers, mutating the state in-place.
 
@@ -105,7 +105,7 @@ The sponge instance for method chaining.
 fork(data?): Sponge;
 ```
 
-Defined in: sponge.ts:31
+Defined in: [sponge.ts:32](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L32)
 
 Creates an independent sponge initialized with the current state,
 optionally absorbing additional child data.
@@ -128,7 +128,7 @@ A new, independent Sponge instance.
 getState(): Uint32Array;
 ```
 
-Defined in: sponge.ts:39
+Defined in: [sponge.ts:40](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L40)
 
 Exports the current internal state index and register values.
 
@@ -145,7 +145,7 @@ A Uint32Array of length `numRegisters + 1`,
 next(): number;
 ```
 
-Defined in: sponge.ts:14
+Defined in: [sponge.ts:15](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L15)
 
 Squeezes the next deterministic unsigned 32-bit integer.
 
@@ -159,7 +159,7 @@ Squeezes the next deterministic unsigned 32-bit integer.
 setState(state): Sponge;
 ```
 
-Defined in: sponge.ts:47
+Defined in: [sponge.ts:48](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L48)
 
 Restores internal state from a previously exported array.
 
@@ -406,7 +406,7 @@ function createSponge(
    mix?): Sponge;
 ```
 
-Defined in: sponge.ts:58
+Defined in: [sponge.ts:59](https://github.com/fimbul-works/hash/blob/main/src/sponge.ts#L59)
 
 Create a new Sponge hasher object.
 
