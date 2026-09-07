@@ -48,8 +48,8 @@
   },
   "files": [
     "dist",
+    "docs",
     "README.md",
-    "docs/README.md",
     "LICENSE"
   ],
   "sideEffects": true,
